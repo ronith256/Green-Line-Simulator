@@ -1,20 +1,16 @@
 package com.lucario.greenline;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 
-import com.google.android.material.materialswitch.MaterialSwitch;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity implements ColorPickerDialog.ColorPickerListener{
@@ -38,21 +34,9 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
         enableRBG = findViewById(R.id.rgbSwitch);
         startButton = findViewById(R.id.buttonStart);
 
-        flicker.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if(isChecked){
-                flickerB = true;
-            } else {
-                flickerB = false;
-            }
-        });
+        flicker.setOnCheckedChangeListener((compoundButton, isChecked) -> flickerB = isChecked);
 
-        enableRBG.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if(isChecked){
-                isRGB = true;
-            } else {
-                isRGB = false;
-            }
-        });
+        enableRBG.setOnCheckedChangeListener((compoundButton, isChecked) -> isRGB = isChecked);
 
         lineWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -84,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
                 if (!Settings.canDrawOverlays(this)) {
                     Intent set = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                             Uri.parse("package:" + getPackageName()));
-                    startActivityForResult(intent, REQUEST_OVERLAY_PERMISSION);
+                    startActivityForResult(set, REQUEST_OVERLAY_PERMISSION);
                 } else {
                     startService(intent);
                 }

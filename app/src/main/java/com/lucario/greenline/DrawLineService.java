@@ -50,6 +50,9 @@ public class DrawLineService extends Service {
                 .setSmallIcon(R.drawable.baseline_notifications_24)
                 .build();
 
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(chan);
+
         startForeground(1, notification);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -92,7 +95,7 @@ public class DrawLineService extends Service {
         paint.setColor(color);
         paint.setStrokeWidth(lineWidth);
 
-        canvas.drawLine(0, 0, 0, metrics.heightPixels+250, paint);
+        canvas.drawLine((int)metrics.widthPixels/2f, 0, (int)metrics.widthPixels/2f, metrics.heightPixels+250, paint);
 
 
         lineView.setImageBitmap(bitmap);
